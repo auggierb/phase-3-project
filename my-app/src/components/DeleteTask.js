@@ -7,9 +7,8 @@ function DeleteTask(tasks){
         
         fetch(`http://localhost:9292/tasks/${tasks.id}`,{
           method: "DELETE"
-        })
-        .then((r)=>r.json())
-      }
+        })}
+        
       return(
           <><button onClick={handleDelete}>DELETE</button> </>
       )

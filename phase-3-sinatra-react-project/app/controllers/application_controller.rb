@@ -2,8 +2,9 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
   # Add your routes here
-  get "/" do
-    { message: "Good luck with your project!" }.to_json
+  get "/tasks/:id" do
+  tasks = Task.find_by(id:params[:id])
+  tasks.to_json
   end
   get '/tasks' do 
     tasks = Task.all 
@@ -13,23 +14,18 @@ class ApplicationController < Sinatra::Base
     tasks = Task.create(
       username: params[:username],
       category: params[:category],
-      task: params[:task_description]
+      task_description: params[:task_description]
     )
-    
     tasks.to_json
   end
   delete '/tasks/:id' do
-    tasks= Tasks.find(params[:id])
+    tasks= Task.find_by(id:params[:id])
     tasks.destroy
     tasks.to_json
   end
 
-  post '/users' do 
-    user= User.create(
-    username: params[:user]
-    )
-user.to_json
-  end
+  
+  
   delete 'users/:id' do
     user= User.find(params[:id])
     user.destroy
